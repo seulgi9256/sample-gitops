@@ -8,5 +8,5 @@ resources:
 - ingress-sample-api.yaml
 
 images:
-- name: skaqud/sample-api
+- name: oscka/sample-api
   newTag: RB0.0.7
