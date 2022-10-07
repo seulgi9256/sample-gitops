@@ -6,7 +6,7 @@ metadata:
   labels:
     app: sample-api
 spec:
-  replicas: 4
+  replicas: 1
   selector:
     matchLabels:
       app: sample-api
@@ -22,5 +22,4 @@ spec:
         ports:
         - name: http
           containerPort: 8080
-  minReadySeconds: 30
-  revisionHistoryLimit: 3
+
