@@ -1,2 +1,1 @@
-# sample-gitops
-sample-api gitops project
+# simple-gitops

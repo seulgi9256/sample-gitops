@@ -1,0 +1,12 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+
+resources:
+- sample-api-svc.yaml
+- sample-api-rollout.yaml
+- ingress-sample-api.yaml
+
+images:
+- name: skaqud/sample-api
+  newTag: RB0.0.7

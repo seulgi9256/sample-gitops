@@ -1,0 +1,39 @@
+apiVersion: argoproj.io/v1alpha1 
+kind: Rollout 
+# ==== 이 아래의 내용은 기존 Deployment와 동일하게 작성 ====  
+metadata:
+  name: sample-api-rollout
+  namespace: api
+  labels:
+    app: sample-api
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: sample-api
+  template:
+    metadata:
+      labels:
+        app: sample-api         
+    spec:
+      containers:
+      - name: sample-api
+        image: skaqud/sample-api
+        imagePullPolicy: Always
+        ports:
+        - name: http
+          containerPort: 8080
+  minReadySeconds: 30
+  revisionHistoryLimit: 3
+# ==== 이 위의 내용은 기존 Deployment와 동일하게 작성 ====    
+  strategy:
+    canary: 
+          steps:               
+          - setWeight: 25   # 카나리아로 전송해야하는 트래픽의 백분율
+          - pause: {}       # 롤아웃을 일시 중시하도록 지시한다. 
+                      # pause 구조체 내에 duration 필드가 설정되어 있으면 duration 필드의 값만큼 기다린 후 롤아웃을 진행한다.
+                      # 그렇지 않으면, 일시 중지 조건이 제거될 때 까지 롤아웃이 무기한 대기한다.
+          - setWeight: 50
+          - pause: {} 
+          - setWeight: 75
+          - pause: {}

@@ -1,0 +1,35 @@
+apiVersion: argoproj.io/v1alpha1 
+kind: Rollout 
+# ==== 이 아래의 내용은 기존 Deployment와 동일하게 작성 ====
+metadata:
+  name: sample-api-rollout
+  namespace: api
+  labels:
+    app: sample-api
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: sample-api
+  template:
+    metadata:
+      labels:
+        app: sample-api
+    spec:
+      containers:
+      - name: sample-api
+        image: skaqud/sample-api
+        imagePullPolicy: Always
+        ports:
+        - name: http
+          containerPort: 8080
+          
+  minReadySeconds: 30
+  revisionHistoryLimit: 3
+# ==== 이 위의 내용은 기존 Deployment와 동일하게 작성 ====
+  strategy:
+    # 일반적인 rolling update를 위해서는 단순하게 steps를 제외한 canary 배포 방식을 정의하면 된다.
+    # maxSurge와 maxUnavailable 는 정의될 수 있으며, 생략될 경우 25%와 0으로 반복된다.
+    canary:
+      maxSurge: 1
+      maxUnavailable: 1
