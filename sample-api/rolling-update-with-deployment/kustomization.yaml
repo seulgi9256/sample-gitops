@@ -7,4 +7,4 @@ resources:
 
 images:
 - name: oscka/sample-api
-  newTag: 0.0.13
+  newTag: 0.0.14
