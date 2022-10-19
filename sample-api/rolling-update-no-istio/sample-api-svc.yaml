@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+
+metadata:
+  name: sample-api-svc
+  namespace: api
+spec:
+  selector:
+    app: sample-api
+  
+  ports:
+  - protocol: TCP
+    name: http
+    port: 8080
+    targetPort: http

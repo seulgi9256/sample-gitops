@@ -10,8 +10,9 @@ sample-api를 위한 gitops 프로젝트. 각각 blue-green, canary, rolling upd
 .
 ├── README.md
 └── sample-api
-    ├── blue-green
-    ├── canary
-    ├── rolling-update
-    └── rolling-update-with-deployment
+    ├── blue-green                       # rollout 기반 blue-green 배포정책
+    ├── canary                           # rollout 기반 canary 배포정책
+    ├── rolling-update                   # rollout 기반 rolling update 배포정책
+    └── rolling-update-with-deployment   # 위까지는 istio기반 배포정책
+    └── rolling-update-no-istio          # istio기반이 아닌 rolling update deployment
 ```
