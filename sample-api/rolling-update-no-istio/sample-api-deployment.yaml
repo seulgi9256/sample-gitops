@@ -30,6 +30,6 @@ spec:
           volumeMounts:
           - name: logs
             mountPath: /logs
-        volumes:
-        - name: logs
-          emptyDir: {}    
+      volumes:
+      - name: logs
+        emptyDir: {}    
