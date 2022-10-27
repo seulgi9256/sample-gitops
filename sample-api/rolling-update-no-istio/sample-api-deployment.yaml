@@ -21,14 +21,3 @@ spec:
           ports:
           - name: http
             containerPort: 8080
-          volumeMounts:
-          - name: logs
-            mountPath: /logs
-        - name: fluent-bit-sidecar
-          image: oscka/fluent-bit-sidecar:0.6
-          volumeMounts:
-          - name: logs
-            mountPath: /logs
-      volumes:
-      - name: logs
-        emptyDir: {}    
