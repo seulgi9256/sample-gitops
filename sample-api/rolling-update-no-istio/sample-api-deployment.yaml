@@ -21,9 +21,15 @@ spec:
           ports:
           - name: http
             containerPort: 8080
+          volumeMounts:
+          - name: logs
+            mountPath: /logs
         - name: sidecar-access
           image: busybox
           args: [/bin/sh, -c, 'tail -n+1 -f /logs/sample-api-out.log']
           volumeMounts:
           - name: logs
             mountPath: /logs
+        volumes:
+        - name: logs
+          emptyDir: {}    
