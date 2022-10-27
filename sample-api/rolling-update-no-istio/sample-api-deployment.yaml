@@ -2,24 +2,18 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: sample-api
-  namespace: api    
-  
+  namespace: api  
   labels:
     app: sample-api
-    
-   
 spec:
   replicas: 2
   selector:
     matchLabels:
       app: sample-api
   template:
-    metadata:
-      
+    metadata:      
       labels:
-        app: sample-api     
-      
-
+        app: sample-api
     spec:
       containers:
         - name: sample-api
@@ -27,3 +21,9 @@ spec:
           ports:
           - name: http
             containerPort: 8080
+        - name: sidecar-access
+          image: busybox
+          args: [/bin/sh, -c, 'tail -n+1 -f /logs/sample-api-out.log']
+          volumeMounts:
+          - name: logs
+            mountPath: /logs
