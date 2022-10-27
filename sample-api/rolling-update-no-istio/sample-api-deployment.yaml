@@ -25,7 +25,7 @@ spec:
           - name: logs
             mountPath: /logs
         - name: fluent-bit-sidecar
-          image: oscka/fluent-bit-sidecar:0.4
+          image: oscka/fluent-bit-sidecar:0.5
           volumeMounts:
           - name: logs
             mountPath: /logs
