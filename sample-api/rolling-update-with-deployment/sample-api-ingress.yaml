@@ -1,16 +1,35 @@
-apiVersion: projectcontour.io/v1
-kind: HTTPProxy
-metadata: 
-  labels:
-    app: sample-api
-  name: sample-api-httpproxy
-  namespace: api
-spec: 
-  virtualhost:
-    fqdn: sample-api.127.0.0.1.sslip.io
-  routes: 
-    - conditions:
-      - prefix: /
-      services:
-        - name: sample-api-svc
-          port: 8080
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: sample-api-gateway
+  namespace: api 
+spec:
+  selector:
+    istio: ingressgateway # use istio default controller
+  servers:
+  - port:
+      number: 80
+      name: http
+      protocol: HTTP
+    hosts:
+    - "dev.sample-api.127.0.0.1.sslip.io"
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: sample-api-vs
+  namespace: api 
+spec:
+  hosts:
+  - "dev.sample-api.127.0.0.1.sslip.io"
+  gateways:
+  - sample-api-gateway
+  http:
+  - match:
+    - uri:
+        prefix: /
+    route:
+    - destination:
+        host: sample-api-svc
+        port:
+          number: 8080

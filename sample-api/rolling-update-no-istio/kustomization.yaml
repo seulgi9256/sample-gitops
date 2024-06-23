@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
 - sample-api-deployment.yaml
 - sample-api-svc.yaml
+- sample-api-ingress.yaml
 
 images:
 - name: oscka/sample-api
